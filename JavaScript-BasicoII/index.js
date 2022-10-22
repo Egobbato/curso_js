@@ -32,3 +32,48 @@ document.addEventListener("click", (e) => {
 const agora = new Date();
 
 console.log(agora.toLocaleDateString("pt-br"));
+
+/* Array */
+
+let carros = ["palio 98 ", "uno", "toro", 10, true, new Date()];
+
+console.log(carros[0]);
+console.log(carros.length);
+
+/* Foreach*/
+
+let nomes = ["Eduardo", "Priscila", "Luana", "Isadora"];
+
+nomes.forEach(function (valor, indice) {
+  console.log(valor, indice);
+});
+
+/* Orientação a objeto  Metodos e Classes */
+
+let celular = function () {
+  this.cor = "prata";
+
+  this.ligar = function () {
+    return "Faça uma ligação";
+  };
+};
+
+let novoCelular = new celular();
+
+console.log(novoCelular.ligar());
+
+// Refatorando o codigo acima
+
+class tv {
+  constructor() {
+    this.cor = "Black piano";
+    this.tamanho = 42;
+  }
+
+  ligar() {
+    return "Ligar TV";
+  }
+}
+
+let novaTv = new tv();
+console.log(novaTv.ligar());
