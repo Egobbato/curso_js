@@ -32,8 +32,33 @@ class CalcController {
     this._operation.pop();
   }
 
+  getLastOperation() {
+    return this._operation[this._operation.length - 1];
+  }
+
+  setLastOperation(valor) {
+    this._operation[this._operation.length - 1] = valor;
+  }
+
+  isOperator(valor) {
+    return ["+", "-", "*", "%", "/"].indexOf(valor) > -1;
+  }
+
   addOperation(valor) {
-    this._operation.push(value);
+    if (isNaN(this.getLastOperation())) {
+      if (this.isOperator(valor)) {
+        this.setLastOperation(valor);
+      } else if (isNaN(valor)) {
+        console.log(valor);
+      } else {
+        this._operation.push(valor);
+      }
+    } else {
+      const newValue = this.getLastOperation().toString() + valor.toString();
+      this.setLastOperation(parseInt(newValue));
+      //Number
+    }
+    console.log(this._operation);
   }
 
   setError() {
@@ -49,17 +74,26 @@ class CalcController {
         this.clearEntry();
         break;
       case "soma":
+        this.addOperation("+");
         break;
       case "subtracao":
+        this.addOperation("-");
         break;
       case "multiplicacao":
+        this.addOperation("*");
         break;
       case "divisao":
+        this.addOperation("/");
         break;
       case "porcento":
+        this.addOperation("%");
         break;
       case "igual":
         break;
+      case "ponto":
+        this.addOperation(".");
+        break;
+
       case "0":
       case "1":
       case "2":
@@ -70,7 +104,7 @@ class CalcController {
       case "7":
       case "8":
       case "9":
-        this.addOperation(parseInt(value));
+        this.addOperation(parseInt(valor));
         break;
 
       default:
