@@ -1,5 +1,7 @@
 class CalcController {
   constructor() {
+    this._audio = new Audio("../../click.mp3");
+    this._audioOnOff = false;
     this._getLastOperator = "";
     this._lastNumber = "";
 
@@ -45,6 +47,24 @@ class CalcController {
 
     this.setLastNumberToDisplay();
     this.pasteFromClipBoard();
+
+    document.querySelectorAll(".btn-ac").forEach((btn) => {
+      btn.addEventListener("dbclick", (e) => {
+        this.toggleAudio();
+      });
+    });
+  }
+
+  toggleAudio() {
+    this._audioOnOff = !this._audioOnOff;
+  }
+
+  playAudio() {
+    if (this._audioOnOff) {
+      this._audio.currentTime = 0;
+
+      this._audio.play();
+    }
   }
 
   initKeyBoard() {
@@ -237,6 +257,8 @@ class CalcController {
   }
 
   execBtn(valor) {
+    this.playAudio();
+
     switch (valor) {
       case "ac":
         this.clearAll();
