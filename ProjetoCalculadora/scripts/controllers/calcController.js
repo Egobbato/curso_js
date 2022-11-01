@@ -49,7 +49,7 @@ class CalcController {
     this.pasteFromClipBoard();
 
     document.querySelectorAll(".btn-ac").forEach((btn) => {
-      btn.addEventListener("dbclick", (e) => {
+      btn.addEventListener("dblclick", (e) => {
         this.toggleAudio();
       });
     });
@@ -69,6 +69,8 @@ class CalcController {
 
   initKeyBoard() {
     document.addEventListener("keyup", (e) => {
+      this.playAudio();
+
       switch (e.key) {
         case "Escape":
           this.clearAll();
@@ -354,6 +356,11 @@ class CalcController {
   }
 
   set displayCalc(valor) {
+    if (valor.toString().length > 10) {
+      this.setError();
+      return false;
+    }
+
     this._displayEl.innerHTML = valor;
   }
 
