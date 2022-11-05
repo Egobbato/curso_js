@@ -13,14 +13,23 @@ const campos = document.querySelectorAll("#form-user-create [name]");
 
 const user = {};
 
-campos.forEach(function (campo, index) {
-  if (campo.name == "gender") {
-    if (campo.checked === true) {
-      user[campo.name] = campo.value;
-    }
-  } else {
-    user[campo.name] = campo.value;
-  }
+document.querySelectorAll("button").forEach(function () {
+  this.addEventListener("click", function () {
+    console.log("Cliquei!");
+  });
 });
 
-console.log(user);
+document.getElementById("form-user-create").addEventListener("submit", (e) => {
+  e.preventDefault();
+  campos.forEach(function (campo, index) {
+    if (campo.name == "gender") {
+      if (campo.checked === true) {
+        user[campo.name] = campo.value;
+      }
+    } else {
+      user[campo.name] = campo.value;
+    }
+  });
+
+  console.log(user);
+});
