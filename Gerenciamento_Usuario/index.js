@@ -8,3 +8,9 @@ const eMail = document.querySelector("#exampleInputEmail");
 const senha = document.querySelector("#exampleInputPassword");
 const foto = document.querySelector("#exampleInputFile");
 const admin = document.querySelector("#exampleInputAdmin");
+
+const campos = document.querySelectorAll("#form-user-create [name]");
+
+campos.forEach(function (campo, index) {
+  console.log(campo, index);
+});
