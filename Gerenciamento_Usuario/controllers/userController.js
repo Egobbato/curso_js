@@ -45,21 +45,28 @@ class UserController {
         reject(e);
       };
 
-      fileReader.readAsDataURL(file);
+      if (file) {
+        fileReader.readAsDataURL(file);
+      } else {
+        resolve("../dist/img/boxed-bg.jpg");
+      }
     });
   }
 
   getValues() {
     let user = {};
 
-    [...this.formEl.elements].forEach(function (campo, index) {
+    [...this.formEl.elements].forEach((campo, index) => {
       if (campo.name == "gender") {
-        if (campo.checked === true) {
+        if (campo.checked) {
           user[campo.name] = campo.value;
+        } else if (campo.name == "admin") {
+          user[campo.name] = campo.checked;
         }
       } else {
         user[campo.name] = campo.value;
       }
+      console.log(this.formEl);
     });
 
     return new User(
@@ -75,19 +82,23 @@ class UserController {
   }
 
   addLine(dataUser) {
-    console.log(dataUser);
+    const tr = document.createElement("tr");
 
-    this.tabelEl.innerHTML = `
+    tr.innerHTML = `
     
-    <td><img src="${dataUser.photo}" alt="User Image" class="img-circle img-sm"></td>
+    <td><img src="${
+      dataUser.photo
+    }" alt="User Image" class="img-circle img-sm"></td>
     <td>${dataUser.name}</td>
     <td>${dataUser.email}</td>
-    <td>${dataUser.admin}</td>
+    <td>${dataUser.admin ? "Sim" : "Não"}</td>
     <td>${dataUser.birth}</td>
     <td>
       <button type="button" class="btn btn-primary btn-xs btn-flat">Editar</button>
       <button type="button" class="btn btn-danger btn-xs btn-flat">Excluir</button>
     </td>
     `;
+
+    this.tabelEl.appendChild(tr);
   }
 }
