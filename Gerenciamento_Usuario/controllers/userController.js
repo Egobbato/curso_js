@@ -16,6 +16,8 @@ class UserController {
 
       let values = this.getValues();
 
+      if (!values) return false;
+
       this.getPhoto().then(
         (content) => {
           values.photo = content;
@@ -104,6 +106,8 @@ class UserController {
   addLine(dataUser) {
     const tr = document.createElement("tr");
 
+    tr.dataset.user = JSON.stringify(dataUser);
+
     tr.innerHTML = `
     
     <td><img src="${
@@ -120,5 +124,21 @@ class UserController {
     `;
 
     this.tabelEl.appendChild(tr);
+
+    this.uppdateCount();
+  }
+
+  uppdateCount() {
+    let numberUsers = 0;
+    let numberAdmim = 0;
+
+    [...this.tabelEl.children].forEach((tr) => {
+      numberUsers++;
+      let user = JSON.parse(tr.dataset.user);
+      if (user._admin) numberAdmim++;
+    });
+
+    document.querySelector("#number-users").innerHTML = numberUsers;
+    document.querySelector("#number-users-admin").innerHTML = numberAdmim;
   }
 }
