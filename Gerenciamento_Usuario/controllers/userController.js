@@ -1,6 +1,7 @@
 class UserController {
-  constructor(formId, tableId) {
-    this.formEl = document.getElementById(formId);
+  constructor(formIdCreate, formIdUpdate, tableId) {
+    this.formEl = document.getElementById(formIdCreate);
+    this.formUpdateEl = document.getElementById(formIdUpdate);
     this.tabelEl = document.getElementById(tableId);
 
     this.onSubmit();
@@ -13,6 +14,38 @@ class UserController {
       .addEventListener("click", (e) => {
         this.showPainelCreate();
       });
+
+    this.formUpdateEl.addEventListener("submit", (e) => {
+      e.preventDefault();
+      let btn = this.formUpdateEl.querySelector("[type=submit]");
+
+      btn.disabled = true;
+
+      let values = this.getValues(this.formUpdateEl);
+
+      let index = this.formUpdateEl.dataset.trindex;
+
+      let tr = this.tabelEl.rows[index];
+
+      tr.dataset.user = JSON.stringify(values);
+
+      tr.innerHTML = ` <td><img src="${
+        values.photo
+      }" alt="User Image" class="img-circle img-sm"></td>
+      <td>${values.name}</td>
+      <td>${values.email}</td>
+      <td>${values.admin ? "Sim" : "Não"}</td>
+      <td>${Utils.dateformate(values.register)}</td>
+      <td>
+        <button type="button" class="btn btn-primary btn-edit btn-xs btn-flat">Editar</button>
+        <button type="button" class="btn btn-danger btn-xs btn-flat">Excluir</button>
+      </td>
+      `;
+
+      this.addEventsTr(tr);
+
+      this.uppdateCount();
+    });
   }
 
   onSubmit() {
@@ -23,7 +56,7 @@ class UserController {
 
       btn.disabled = true;
 
-      let values = this.getValues();
+      let values = this.getValues(this.formEl);
 
       if (!values) return false;
 
@@ -72,11 +105,11 @@ class UserController {
     });
   }
 
-  getValues() {
+  getValues(formEl) {
     let user = {};
     let isValid = true;
 
-    [...this.formEl.elements].forEach(function (field, index) {
+    [...formEl.elements].forEach(function (field, index) {
       if (
         ["name", "email", "password"].indexOf(field.name) > -1 &&
         !field.value
@@ -132,9 +165,19 @@ class UserController {
     </td>
     `;
 
+    this.addEventsTr(tr);
+
+    this.tabelEl.appendChild(tr);
+
+    this.uppdateCount();
+  }
+
+  addEventsTr(tr) {
     tr.querySelector(".btn-edit").addEventListener("click", (e) => {
       let json = JSON.parse(tr.dataset.user);
       let form = document.querySelector("#form-user-update");
+
+      form.dataset.trindex = tr.sectionRowIndex;
 
       for (let name in json) {
         let field = form.querySelector("[name=" + name.replace("_", "") + "]");
@@ -164,10 +207,6 @@ class UserController {
 
       this.showPainelUpdate();
     });
-
-    this.tabelEl.appendChild(tr);
-
-    this.uppdateCount();
   }
 
   showPainelCreate() {
