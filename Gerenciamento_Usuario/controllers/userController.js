@@ -44,15 +44,17 @@ class UserController {
 
           user.loadFromJson(result);
 
+          user.save();
+
           this.getTr(user, tr);
 
           this.uppdateCount();
 
           this.formUpdateEl.reset();
 
-          this.showPainelCreate();
-
           btn.disabled = false;
+
+          this.showPainelCreate();
         },
         (e) => {
           console.error(e);
@@ -77,7 +79,7 @@ class UserController {
         (content) => {
           values.photo = content;
 
-          this.insert(values);
+          values.save();
 
           this.addLine(values);
 
@@ -180,15 +182,6 @@ class UserController {
 
       this.addLine(user);
     });
-  }
-
-  insert(data) {
-    let users = this.getUsersStorage();
-
-    users.push(data);
-
-    // sessionStorage.setItem("users", JSON.stringify(users));
-    localStorage.setItem("users", JSON.stringify(users));
   }
 
   addLine(dataUser) {
