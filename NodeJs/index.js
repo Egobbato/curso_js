@@ -15,13 +15,13 @@ app.get("/users", (req, res) => {
     users: [
       {
         name: "Gobbato",
-        email: "egobbato@teste.com.br",
+        email: "egobbato@teste.com",
         id: 1,
       },
     ],
   });
 });
 
-app.listen(4000, "127.0.0.1", () => {
+app.listen(4000, () => {
   console.log("Servido Rodando!");
 });
