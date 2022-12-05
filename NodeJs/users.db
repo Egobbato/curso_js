@@ -1,7 +1,7 @@
 {"_id":"PF8c7AhBMV7fXoyl"}
-{"name":"Morales","_id":"VXHYrrIxdflasfSV"}
+{"name":"Morales","email":"teste@teste.com","senha":"789","_id":"VXHYrrIxdflasfSV"}
 {"name":"Gobbato","email ":"edu@teste.com.br","senha":"123456","_id":"WVI7cT0ojzj7thgl"}
 {"name:":"Morales","email:":"teste@teste.com.br","senha:":"321","_id":"mmBZPVxBliqbOm6A"}
 {"name":"Gobbato","email ":"edu@teste.com.br","senha":"123456","":"","_id":"xswDh1SLTlVULhMM"}
-{"name":"Morales","_id":"VXHYrrIxdflasfSV"}
-{"name":"Morales","email":"teste@teste.com","senha":"789","_id":"VXHYrrIxdflasfSV"}
+{"$$deleted":true,"_id":"PF8c7AhBMV7fXoyl"}
+{"$$deleted":true,"_id":"xswDh1SLTlVULhMM"}
